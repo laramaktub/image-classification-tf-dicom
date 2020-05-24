@@ -348,7 +348,7 @@ def wikipedia_link(pred_lab):
 
 def train(**args):
     """
-    Train an image classifier
+    Medical image classifier
     """
     update_with_query_conf(user_args=args)
     CONF = config.conf_dict
