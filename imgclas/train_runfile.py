@@ -55,14 +55,11 @@ def train_fn(TIMESTAMP, CONF):
 
     utils.create_dir_tree()
     utils.backup_splits()
-    print("train ---------------------------------------------------------------+++++++++++++++" , paths.get_ts_splits_dir())
-    print(" images -------------" ,paths.get_images_dir())
 
     # Load the training data
     X_train, y_train = load_data_splits(splits_dir=paths.get_ts_splits_dir(),
                                         im_dir=paths.get_images_dir(),
                                         split_name='train')
-    print("X_train ------> ", X_train)	
     # Load the validation data
     if (CONF['training']['use_validation']) and ('val.txt' in os.listdir(paths.get_ts_splits_dir())):
         X_val, y_val = load_data_splits(splits_dir=paths.get_ts_splits_dir(),
@@ -179,7 +176,10 @@ def train_fn(TIMESTAMP, CONF):
     fpath = os.path.join(paths.get_checkpoints_dir(), 'final_model.h5')
     model.save(fpath,
                include_optimizer=False)
-
+    onedatapath=os.path.join(onedata_ckpts,'final_model.h5')
+    model.save(onedatapath,
+               include_optimizer=False)
+            
     # print('Saving the model to protobuf...')
     # fpath = os.path.join(paths.get_checkpoints_dir(), 'final_model.proto')
     # model_utils.save_to_pb(model, fpath)
@@ -195,5 +195,16 @@ if __name__ == '__main__':
     # CONF['general']['images_directory'] = 'data/samples'
     # CONF['training']['use_multiprocessing'] = False
     # CONF['model']['modelname'] = "MobileNet"
+
+    try:
+        onedatadir = os.getenv('APP_INPUT_OUTPUT_BASE_DIR')
+        if os.path.exists(onedatadir) and onedata!="":
+            onedata_timestamp=onedatadir+"/"+timestamp
+            global onedata_ckpts
+            onedata_ckpts=onedata_timestamp+"/ckpts/"
+            os.mkdir(onedata_timestamp)
+            os.mkdir(onedata_ckpts)
+    except:
+         print("One data is not mounted. Continuing with local data")
 
     train_fn(TIMESTAMP=timestamp, CONF=CONF)
