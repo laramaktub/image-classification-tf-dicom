@@ -55,23 +55,44 @@ def train_fn(TIMESTAMP, CONF):
 
     utils.create_dir_tree()
     utils.backup_splits()
+   
+    if (onedatarun):
+        # Load the training data
+        X_train, y_train = load_data_splits(splits_dir=os.getenv('APP_INPUT_OUTPUT_BASE_DIR')+"/dataset_files",
+                                            im_dir=paths.get_images_dir(),
+                                            split_name='train')
+        # Load the validation data
+        if (CONF['training']['use_validation']) and ('val.txt' in os.listdir(os.getenv('APP_INPUT_OUTPUT_BASE_DIR')+"/dataset_files")):
+            X_val, y_val = load_data_splits(splits_dir=os.getenv('APP_INPUT_OUTPUT_BASE_DIR')+"/dataset_files", im_dir=paths.get_images_dir(),split_name='val')
+        else:
+            print('No validation data.')
+            X_val, y_val = None, None
+            CONF['training']['use_validation'] = False
 
-    # Load the training data
-    X_train, y_train = load_data_splits(splits_dir=paths.get_ts_splits_dir(),
-                                        im_dir=paths.get_images_dir(),
-                                        split_name='train')
-    # Load the validation data
-    if (CONF['training']['use_validation']) and ('val.txt' in os.listdir(paths.get_ts_splits_dir())):
-        X_val, y_val = load_data_splits(splits_dir=paths.get_ts_splits_dir(),
+
+    else:
+
+        # Load the training data
+        X_train, y_train = load_data_splits(splits_dir=paths.get_ts_splits_dir(),
+                                            im_dir=paths.get_images_dir(),
+                                            split_name='train')
+        # Load the validation data
+        if (CONF['training']['use_validation']) and ('val.txt' in os.listdir(paths.get_ts_splits_dir())):
+            X_val, y_val = load_data_splits(splits_dir=paths.get_ts_splits_dir(),
                                         im_dir=paths.get_images_dir(),
                                         split_name='val')
-    else:
-        print('No validation data.')
+        else:
+            print('No validation data.')
         X_val, y_val = None, None
         CONF['training']['use_validation'] = False
 
+
+
     # Load the class names
-    class_names = load_class_names(splits_dir=paths.get_ts_splits_dir())
+    if onedatarun:
+        class_names = load_class_names(splits_dir=paths.os.getenv('APP_INPUT_OUTPUT_BASE_DIR')+"/dataset_files")
+    else:
+        class_names = load_class_names(splits_dir=paths.get_ts_splits_dir())
 
     # Update the configuration
     CONF['model']['input_channels'] = np.load(X_train[0]).shape[2]
@@ -195,16 +216,17 @@ if __name__ == '__main__':
     # CONF['general']['images_directory'] = 'data/samples'
     # CONF['training']['use_multiprocessing'] = False
     # CONF['model']['modelname'] = "MobileNet"
-
+    global onedatarun
+    onedatarun=True
     try:
         onedatadir = os.getenv('APP_INPUT_OUTPUT_BASE_DIR')+"/models"
         if os.path.exists(onedatadir) and onedatadir!="":
             onedata_timestamp=onedatadir+"/"+timestamp
-            global onedata_ckpts
+            global onedata_ckpts, onedata_splits
             onedata_ckpts=onedata_timestamp+"/ckpts/"
             os.mkdir(onedata_timestamp)
             os.mkdir(onedata_ckpts)
     except:
          print("One data is not mounted. Continuing with local data")
-
+         onedatarun=false
     train_fn(TIMESTAMP=timestamp, CONF=CONF)
