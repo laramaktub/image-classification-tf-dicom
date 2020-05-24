@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# DEEP-OC-image-classification documentation build configuration file, created by
+# DEEP-OC-image-classification-dicom documentation build configuration file, created by
 # sphinx-quickstart.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -41,7 +41,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'DEEP-OC-image-classification'
+project = u'DEEP-OC-image-classification-dicom'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -185,7 +185,7 @@ latex_elements = {
 latex_documents = [
     ('index',
      'imgclas.tex',
-     u'DEEP-OC-image-classification Documentation',
+     u'DEEP-OC-image-classification-dicom Documentation',
      u"Ignacio Heredia (CSIC)", 'manual'),
 ]
 
@@ -215,7 +215,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'imgclas', u'DEEP-OC-image-classification Documentation',
+    ('index', 'imgclas', u'DEEP-OC-image-classification-dicom Documentation',
      [u"Ignacio Heredia (CSIC)"], 1)
 ]
 
@@ -229,8 +229,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    ('index', 'imgclas', u'DEEP-OC-image-classification Documentation',
-     u"Ignacio Heredia (CSIC)", 'DEEP-OC-image-classification',
+    ('index', 'imgclas', u'DEEP-OC-image-classification-dicom Documentation',
+     u"Ignacio Heredia (CSIC)", 'DEEP-OC-image-classification-dicom',
      'This is a plug-and-play tool to train and evaluate an image classifier on a custom dataset using deep neural networks.', 'Miscellaneous'),
 ]
 

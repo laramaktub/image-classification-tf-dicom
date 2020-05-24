@@ -1,11 +1,10 @@
 DEEP Open Catalogue: Image classification
 =========================================
 
-[![Build Status](https://jenkins.indigo-datacloud.eu/buildStatus/icon?job=Pipeline-as-code/DEEP-OC-org/image-classification-tf/master)](https://jenkins.indigo-datacloud.eu/job/Pipeline-as-code/job/DEEP-OC-org/job/image-classification-tf/job/master/)
+[![Build Status](https://jenkins.indigo-datacloud.eu/buildStatus/icon?job=Pipeline-as-code/DEEP-OC-org/image-classification-tf-dicom/master)](https://jenkins.indigo-datacloud.eu/job/Pipeline-as-code/job/DEEP-OC-org/job/image-classification-tf/job/master/)
 
 ---
-> This branch is experimental work on supporting uint16 input (instead of classical images with uint8).
-> This done to support image classification with DICOM data.
+> This is an updated version of the image classification module with support image classification with DICOM data.
 
 Changes with respect to master:
 * now *.txt files must point to .npy uint 16 files (instead of images) of shape (H, W, C).
@@ -24,7 +23,7 @@ received funding from the European Union’s Horizon 2020 research and innovatio
 
 This is a plug-and-play tool to train and evaluate an image classifier on a custom dataset using deep neural networks.
 
-You can find more information about it in the [DEEP Marketplace](https://marketplace.deep-hybrid-datacloud.eu/modules/deep-oc-image-classification-tf.html).
+You can find more information about it in the [DEEP Marketplace](https://marketplace.deep-hybrid-datacloud.eu/modules/deep-oc-image-classification-tf-dicom.html).
 
 **Table of contents**
 1. [Installing this module](#installing-this-module)
@@ -55,8 +54,8 @@ You can find more information about it in the [DEEP Marketplace](https://marketp
 To start using this framework clone the repo and download the [default weights](https://cephrgw01.ifca.es:8080/swift/v1/imagenet-tf/default_imagenet.tar.xz):
 
 ```bash
-git clone https://github.com/deephdc/image-classification-tf
-cd image-classification-tf
+git clone https://github.com/deephdc/image-classification-tf-dicom
+cd image-classification-tf-dicom
 pip install -e .
 curl -o ./models/default.tar.gz https://cephrgw01.ifca.es:8080/swift/v1/imagenet-tf/default_imagenet.tar.xz
 cd models && tar -zxvf default_imagenet.tar.gz && rm default_imagenet.tar.gz
@@ -69,12 +68,12 @@ and open http://0.0.0.0:5000/ui and look for the methods belonging to the `imgcl
 
 ### Docker installation
 
-We have also prepared a ready-to-use [Docker container](https://github.com/deephdc/DEEP-OC-image-classification-tf) to
+We have also prepared a ready-to-use [Docker container](https://github.com/deephdc/DEEP-OC-image-classification-tf-dicom) to
 run this module. To run it:
 
 ```bash
 docker search deephdc
-docker run -ti -p 5000:5000 -p 6006:6006 -p 8888:8888 deephdc/deep-oc-image-classification-tf
+docker run -ti -p 5000:5000 -p 6006:6006 -p 8888:8888 deephdc/deep-oc-image-classification-tf-dicom
 ```
 
 Now open http://0.0.0.0:5000/ui and look for the methods belonging to the `imgclas` module.
