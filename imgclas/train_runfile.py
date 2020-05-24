@@ -197,8 +197,8 @@ if __name__ == '__main__':
     # CONF['model']['modelname'] = "MobileNet"
 
     try:
-        onedatadir = os.getenv('APP_INPUT_OUTPUT_BASE_DIR')
-        if os.path.exists(onedatadir) and onedata!="":
+        onedatadir = os.getenv('APP_INPUT_OUTPUT_BASE_DIR')+"/models"
+        if os.path.exists(onedatadir) and onedatadir!="":
             onedata_timestamp=onedatadir+"/"+timestamp
             global onedata_ckpts
             onedata_ckpts=onedata_timestamp+"/ckpts/"
