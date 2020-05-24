@@ -1,0 +1,1 @@
+oneclient -H $ONECLIENT_PROVIDER_HOST -t $ONECLIENT_ACCESS_TOKEN /mnt/onedata
