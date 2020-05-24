@@ -1,3 +1,0 @@
-[deepaas.v2.model]
-imgclas = imgclas.api
-
