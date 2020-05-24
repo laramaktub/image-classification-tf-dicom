@@ -50,14 +50,6 @@ from imgclas.train_runfile import train_fn
 # --> another option is to add a marshmallow schema to each config args
 
 
-# Mount NextCloud folders (if NextCloud is available)
-try:
-    mount_nextcloud('rshare:/data/dataset_files', paths.get_splits_dir())
-    mount_nextcloud('rshare:/data/images', paths.get_images_dir())
-    #mount_nextcloud('rshare:/models', paths.get_models_dir())
-except Exception as e:
-    print(e)
-
 # Empty model variables for inference (will be loaded the first time we perform inference)
 loaded_ts, loaded_ckpt = None, None
 graph, model, conf, class_names, class_info = None, None, None, None, None
