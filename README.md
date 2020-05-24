@@ -1,4 +1,4 @@
-DEEP Open Catalogue: Image classification
+DEEP Open Catalogue: Medical Image Classification
 =========================================
 
 [![Build Status](https://jenkins.indigo-datacloud.eu/buildStatus/icon?job=Pipeline-as-code/DEEP-OC-org/image-classification-tf-dicom/master)](https://jenkins.indigo-datacloud.eu/job/Pipeline-as-code/job/DEEP-OC-org/job/image-classification-tf/job/master/)
